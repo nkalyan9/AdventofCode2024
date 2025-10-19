@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 class AdventofCode
 {
     static void Main()
     {
         Day1();
         Day2();
+        Day3();
 
     }
     static void Day1()
@@ -112,6 +114,20 @@ class AdventofCode
                 return false;
         }
         return true;
+    }
+    //Day3Part1
+    static void Day3()
+    {
+        string text = File.ReadAllText("Day3.txt");   
+        int total = 0; 
+        MatchCollection matches = Regex.Matches(text, @"mul\((\d{1,3}),(\d{1,3})\)");
+        foreach (Match m in matches)
+        {
+            int a = int.Parse(m.Groups[1].Value);  
+            int b = int.Parse(m.Groups[2].Value);  
+            total += a * b;                        
+        }
+        Console.WriteLine(total);  
     }
 }
     
