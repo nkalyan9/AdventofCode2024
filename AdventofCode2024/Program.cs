@@ -119,16 +119,41 @@ class AdventofCode
     static void Day3()
     {
         string text = File.ReadAllText("Day3.txt");   
-        int total = 0; 
+        int total1 = 0; 
         MatchCollection matches = Regex.Matches(text, @"mul\((\d{1,3}),(\d{1,3})\)");
         foreach (Match m in matches)
         {
             int a = int.Parse(m.Groups[1].Value);  
             int b = int.Parse(m.Groups[2].Value);  
-            total += a * b;                        
+            total1 += a * b;                        
         }
-        Console.WriteLine(total);  
+        Console.WriteLine(total1);
+        //Part2
+        int total2 = 0;
+        bool isEnabled = true;
+
+        string pattern = @"do\(\)|don't\(\)|mul\((\d{1,3}),(\d{1,3})\)";
+        MatchCollection allMatches = Regex.Matches(text, pattern);
+
+        foreach (Match m in allMatches)
+        {
+            string val = m.Value;
+
+            if (val == "do()")
+                isEnabled = true;
+            else if (val == "don't()")
+                isEnabled = false;
+            else if (isEnabled)
+            {
+                int x = int.Parse(m.Groups[1].Value);
+                int y = int.Parse(m.Groups[2].Value);
+                total2 += x * y;
+            }
+        }
+
+        Console.WriteLine(total2);
     }
 }
+
     
 
